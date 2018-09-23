@@ -1,4 +1,5 @@
 from expert_system import expert_system
+from product_predict import PredictionModel
 import pandas as pd
 from tqdm import tqdm
 import numpy as np
@@ -16,6 +17,8 @@ df["sex"] = df["sex"].map(sex_map)
 df["mstatus"] = df["mstatus"].map(mstatus_map)
 df["occupation"] = df["occupation"].map(occupation_map)
 df["education"] = df["education"].map(education_map)  
+
+model = PredictionModel()
 
 # Compute expected profit for each customer
 def expected_profit_all_customers(df):
@@ -43,7 +46,7 @@ def expected_profit_all_customers(df):
     for index in tqdm(range(len(df))): 
         row = df.loc[index]
         cip = expert_system_predict(row)
-        product = 'A'
+        product = model.predict(row)[0]
         expected_profit = expected_profit_customer(cip, product)
         cust_predict.append([df.loc[index, "index"], product, cip, expected_profit])   
     
