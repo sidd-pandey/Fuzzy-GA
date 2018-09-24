@@ -4,16 +4,30 @@ from skfuzzy import control as ctrl
 
 class ExpertSystem:
 
+    init_cutpoints = {
+        "age": [30, 40, 50],
+        "income": [2500, 5000, 7500],
+        "avbal": [14000, 20000, 27000],
+        "avtrans": [1000, 1500, 2400],
+        "cip": [3, 5, 7]
+    }
+
     def __init__(self, df, cutpoints=None):
         self.df = df
+        
+        self.cutpoints = dict(self.init_cutpoints)
         if cutpoints is not None:
-            self.cutpoints = cutpoints
+            for key in self.cutpoints:
+                if key in cutpoints:
+                    self.cutpoints[key] = cutpoints[key]
+        
         self.simulator = self.expert_system()
 
 
     def expert_system(self):
 
         df = self.df
+        cp = self.cutpoints
         # Membership function for sex
         # F = 1, M = 0
         x = np.arange(df["sex"].min(), df["sex"].max() + 1, 1)
@@ -34,9 +48,9 @@ class ExpertSystem:
         # x = sorted(df["age"])
         x = df["age"].sort_values().unique()
         age = ctrl.Antecedent(x, "age")
-        age["young"] = fuzz.membership.trapmf(age.universe, [0, 0, 30, 40])
-        age["middle"] = fuzz.membership.trimf(age.universe, [30, 40, 50])
-        age["old"] = fuzz.membership.trapmf(age.universe, [40, 50, max(x), max(x)])
+        age["young"] = fuzz.membership.trapmf(age.universe, [0, 0, cp["age"][0], cp["age"][1]])
+        age["middle"] = fuzz.membership.trimf(age.universe, [cp["age"][0], cp["age"][1], cp["age"][2]])
+        age["old"] = fuzz.membership.trapmf(age.universe, [cp["age"][1], cp["age"][2], max(x), max(x)])
 
         # Membership function for children
         x = np.arange(df["children"].min(), df["children"].max()+1, 1)
@@ -69,35 +83,35 @@ class ExpertSystem:
         # x = sorted(df["income"])
         x = df["income"].sort_values().unique()
         income = ctrl.Antecedent(x, "income")
-        income["low"] = fuzz.membership.trapmf(income.universe, [0, 0, 2500, 5000])
-        income["medium"] = fuzz.membership.trimf(income.universe, [2500, 5000, 7500])
-        income["high"] = fuzz.membership.trapmf(income.universe, [5000, 7500, max(x), max(x)])
+        income["low"] = fuzz.membership.trapmf(income.universe, [0, 0, cp["income"][0], cp["income"][1]])
+        income["medium"] = fuzz.membership.trimf(income.universe, [cp["income"][0], cp["income"][1], cp["income"][2]])
+        income["high"] = fuzz.membership.trapmf(income.universe, [cp["income"][1], cp["income"][2], max(x), max(x)])
 
         # Membership function for avbal
         # x = np.arange(df["avbal"].min(), df["avbal"].max()+1, 0.01)
         # x = sorted(df["avbal"])
         x = df["avbal"].sort_values().unique()
         avbal = ctrl.Antecedent(x, "avbal")
-        avbal["low"] = fuzz.membership.trapmf(avbal.universe, [0, 0, 14000, 20000])
-        avbal["medium"] = fuzz.membership.trimf(avbal.universe, [14000, 20000, 27000])
-        avbal["high"] = fuzz.membership.trapmf(avbal.universe, [20000, 27000, max(x), max(x)])
+        avbal["low"] = fuzz.membership.trapmf(avbal.universe, [0, 0, cp["avbal"][0], cp["avbal"][1]])
+        avbal["medium"] = fuzz.membership.trimf(avbal.universe, [cp["avbal"][0], cp["avbal"][1], cp["avbal"][2]])
+        avbal["high"] = fuzz.membership.trapmf(avbal.universe, [cp["avbal"][1], cp["avbal"][2], max(x), max(x)])
 
         # Membership function for avtrans
         # x = np.arange(df["avtrans"].min(), df["avtrans"].max()+1, 0.01)
         # x = sorted(df["avtrans"])
         x = df["avtrans"].sort_values().unique()
         avtrans = ctrl.Antecedent(x, "avtrans")
-        avtrans["low"] = fuzz.membership.trapmf(avtrans.universe, [0, 0, 1000, 1500])
-        avtrans["medium"] = fuzz.membership.trimf(avtrans.universe, [1000, 1500, 2400])
-        avtrans["high"] = fuzz.membership.trapmf(avtrans.universe, [1500, 2400, max(x), max(x)])
+        avtrans["low"] = fuzz.membership.trapmf(avtrans.universe, [0, 0, cp["avtrans"][0], cp["avtrans"][1]])
+        avtrans["medium"] = fuzz.membership.trimf(avtrans.universe, [cp["avtrans"][0], cp["avtrans"][1], cp["avtrans"][2]])
+        avtrans["high"] = fuzz.membership.trapmf(avtrans.universe, [cp["avtrans"][1], cp["avtrans"][2], max(x), max(x)])
 
         # Membership function for cip
         # x = np.arange(0, 10 + 1, 0.01)
         x = np.arange(0, 10 + 1, 0.1)
         cip = ctrl.Consequent(x, "cip")
-        cip["low"] = fuzz.membership.trapmf(cip.universe, [0, 0, 3, 5])
-        cip["medium"] = fuzz.membership.trimf(cip.universe, [3, 5, 7])
-        cip["high"] = fuzz.membership.trapmf(cip.universe, [5, 7, max(x), max(x)])
+        cip["low"] = fuzz.membership.trapmf(cip.universe, [0, 0, cp["cip"][0], cp["cip"][1]])
+        cip["medium"] = fuzz.membership.trimf(cip.universe, [cp["cip"][0], cp["cip"][1], cp["cip"][2]])
+        cip["high"] = fuzz.membership.trapmf(cip.universe, [cp["cip"][1], cp["cip"][2], max(x), max(x)])
 
         rules = []
     
