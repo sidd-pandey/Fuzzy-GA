@@ -1,22 +1,12 @@
 from expert_system import expert_system
 from prediction_system import PredictionModel
 import pandas as pd
+import utils
 from tqdm import tqdm
 import numpy as np
 
 # Read the data frame
-df = pd.read_csv("data/custdatabase.csv").drop("Unnamed: 10", axis =1)
-
-# Convert to Categorical
-sex_map = {"M": 0, "F": 1}
-mstatus_map = {"single":0, "married":1, "widowed":2, "divorced":3}
-occupation_map = {'legal':0, 'IT':1, 'government':2, 'manuf':3, 'retired':4, 
-                  'finance':5,'construct':6, 'education':7, 'medicine':8}
-education_map = {'postgrad':3, 'secondary':0, 'tertiary':1, 'professional':2}
-df["sex"] = df["sex"].map(sex_map)
-df["mstatus"] = df["mstatus"].map(mstatus_map)
-df["occupation"] = df["occupation"].map(occupation_map)
-df["education"] = df["education"].map(education_map)  
+df = utils.load_data("data/custdatabase.csv")
 
 model = PredictionModel()
 
@@ -43,7 +33,8 @@ def expected_profit_all_customers(df):
         return simulator.output['cip']
     
     cust_predict = []
-    for index in tqdm(range(len(df))): 
+    # for index in tqdm(range(len(df))): 
+    for index in tqdm(range(10)):
         row = df.loc[index]
         cip = expert_system_predict(row)
         product = model.predict(row)[0]
