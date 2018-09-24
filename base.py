@@ -1,5 +1,5 @@
 from expert_system import expert_system
-from product_predict import PredictionModel
+from prediction_system import PredictionModel
 import pandas as pd
 from tqdm import tqdm
 import numpy as np
