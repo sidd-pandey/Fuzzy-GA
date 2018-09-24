@@ -33,8 +33,7 @@ def expected_profit_all_customers(df):
         return simulator.output['cip']
     
     cust_predict = []
-    # for index in tqdm(range(len(df))): 
-    for index in tqdm(range(10)):
+    for index in tqdm(range(len(df))): 
         row = df.loc[index]
         cip = expert_system_predict(row)
         product = model.predict(row)[0]
