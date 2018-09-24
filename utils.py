@@ -1,5 +1,6 @@
 import pandas as pd
 
+# Load and preprocess data from file
 def load_data(file):
     df = pd.read_csv(file)
     if ("Unnamed: 10" in df.columns): df = df.drop("Unnamed: 10", axis =1)
@@ -14,3 +15,12 @@ def load_data(file):
     df["occupation"] = df["occupation"].map(occupation_map)
     df["education"] = df["education"].map(education_map)  
     return df
+
+# Expected profit for given customer
+def expected_profit_customer(cip, product):
+    adj_cip = 0
+    if product == 'A':
+        adj_cip = cip * 0.6
+    if product == 'B':
+        adj_cip = cip
+    return adj_cip

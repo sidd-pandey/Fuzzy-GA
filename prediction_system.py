@@ -33,7 +33,9 @@ class PredictionModel:
     def predict(self, row):
         def preprocess(row):
             row = row[self.columns]
-            return row.values.reshape(1, -1)
+            if len(row) == 1:
+                return row.values.reshape(1, -1)
+            return row
         row = preprocess(row)
         
         return self.model.predict(row)

@@ -1,5 +1,5 @@
 import pandas as pd
-import utils
+from utils import load_data, expected_profit_customer
 from tqdm import tqdm
 import numpy as np
 from prediction_system import PredictionModel
@@ -7,28 +7,20 @@ from expert_system import ExpertSystem
 
 
 # Read the data frame
-df = utils.load_data("data/custdatabase.csv")
+df = load_data("data/custdatabase.csv")
 
 model = PredictionModel()
+product_predict = model.predict(df)
+
 expert = ExpertSystem(df)
 
 # Compute expected profit for each customer
-def expected_profit_all_customers(df):
-
-    # Expected profit for given customer
-    def expected_profit_customer(cip, product):
-        adj_cip = 0
-        if product == 'A':
-            adj_cip = cip * 0.6
-        if product == 'B':
-            adj_cip = cip
-        return adj_cip
-    
+def expected_profit_all_customers(df):    
     cust_predict = []
     for index in tqdm(range(len(df))): 
         row = df.loc[index]
         cip = expert.predict(row)
-        product = model.predict(row)[0]
+        product = product_predict[index]
         expected_profit = expected_profit_customer(cip, product)
         cust_predict.append([df.loc[index, "index"], product, cip, expected_profit])   
     
