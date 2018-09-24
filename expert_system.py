@@ -4,7 +4,7 @@ from skfuzzy import control as ctrl
 
 class ExpertSystem:
 
-    def __init__(self, df, cutpoints):
+    def __init__(self, df, cutpoints=None):
         self.df = df
         if cutpoints is not None:
             self.cutpoints = cutpoints

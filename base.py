@@ -10,7 +10,7 @@ from expert_system import ExpertSystem
 df = utils.load_data("data/custdatabase.csv")
 
 model = PredictionModel()
-expert = ExpertSystem(df, None)
+expert = ExpertSystem(df)
 
 # Compute expected profit for each customer
 def expected_profit_all_customers(df):
