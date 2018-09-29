@@ -2,6 +2,7 @@ import pandas as pd
 from tqdm import tqdm
 import numpy as np
 
+sample_size = 10
 # Load and preprocess data from file
 def load_data(file):
     df = pd.read_csv(file)
@@ -30,17 +31,22 @@ def expected_profit_customer(cip, product):
 # Compute expected profit for customers selected for campaign
 def expected_profit_campaign_predicted(model, expert, df, save_csv=False):    
     cust_predict = []
+    df = df.sample(sample_size)
     product_predict = model.predict(df)
-    for index in tqdm(range(len(df))): 
-        row = df.loc[index]
+    # print(product_predict)
+    # for index in tqdm(range(len(df)), gui=False):
+    j = 0
+    for index, row in (df.iterrows()):
+        # row = df.loc[index]
         cip = expert.predict(row)
-        product = product_predict[index]
+        product = product_predict[j]
         expected_profit = expected_profit_customer(cip, product)
-        cust_predict.append([df.loc[index, "index"], product, cip, expected_profit])   
+        cust_predict.append([df.loc[index, "index"], product, cip, expected_profit])
+        j + 1   
     
     cust_predict_df = pd.DataFrame(cust_predict, columns=["index", "product", "cip", "expected profit"])
     cust_predict_df_sorted = cust_predict_df.sort_values(by=["expected profit"], ascending=False)
-    cust_campaign_400 = cust_predict_df_sorted[:400]
+    cust_campaign_400 = cust_predict_df_sorted[:int(sample_size*0.40)]
     
     if save_csv:
         cust_predict_df.to_csv("data/Cust_Predict.csv", index=False)
@@ -59,7 +65,7 @@ def expected_profit_campaign_actual(df):
     
     df["profit"] = profit
     df_sorted = df.sort_values(by=["profit"], ascending=False)
-    df_sorted_400 = df_sorted[:400]
+    df_sorted_400 = df_sorted[:sample_size]
     expected_profit = np.sum(df_sorted_400["profit"].values)
     
     return expected_profit, df_sorted_400["index"].values
