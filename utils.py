@@ -2,7 +2,7 @@ import pandas as pd
 from tqdm import tqdm
 import numpy as np
 
-sample_size = 10
+sample_size = 4000
 # Load and preprocess data from file
 def load_data(file):
     df = pd.read_csv(file)
@@ -36,7 +36,7 @@ def expected_profit_campaign_predicted(model, expert, df, save_csv=False):
     # print(product_predict)
     # for index in tqdm(range(len(df)), gui=False):
     j = 0
-    for index, row in (df.iterrows()):
+    for index, row in tqdm(df.iterrows()):
         # row = df.loc[index]
         cip = expert.predict(row)
         product = product_predict[j]
@@ -60,7 +60,7 @@ def expected_profit_campaign_predicted(model, expert, df, save_csv=False):
 def expected_profit_campaign_actual(df):
     profit = []
     for index in range(len(df)):
-        profit.append(expected_profit_customer(df.loc[index, "cust Investment Potential Score "], 
+        profit.append(expected_profit_customer(df.loc[index, "cust Investment Potential Score"], 
             df.loc[index, "status"]))
     
     df["profit"] = profit
@@ -74,7 +74,7 @@ def expected_profit_campaign_actual(df):
 def expected_profit_campaign_predicted_actual(df, indexs):
     profit = []
     for index in indexs:
-        profit.append(expected_profit_customer(df.loc[index, "cust Investment Potential Score "], 
+        profit.append(expected_profit_customer(df.loc[index, "cust Investment Potential Score"], 
             df.loc[index, "status"]))
     
     expected_profit = np.sum(profit)

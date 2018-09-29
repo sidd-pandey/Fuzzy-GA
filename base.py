@@ -9,7 +9,13 @@ from expert_system import ExpertSystem
 df = load_data("data/custdatabase.csv")
 
 model = PredictionModel()
-expert = ExpertSystem(df)
+expert = ExpertSystem(df, cutpoints = {
+        "age": [24, 40, 50],
+        "income": [2500, 6468, 7500],
+        "avbal": [33857, 51511, 67476],
+        "avtrans": [1620, 2210, 5448],
+        "cip": [3, 9, 10]
+    })
 
 expected_profit_campaign_pred, predicted_index = expected_profit_campaign_predicted(model, expert, df, save_csv=True)
 print("Predicted:", expected_profit_campaign_pred)

@@ -1,0 +1,16 @@
+[24, 40, 50, 2500, 6468, 7500, 33857, 51511, 67476, 1620, 2210, 5448, 3, 9, 10]
+
+ GP Mode:                 False
+        Population Size:         100
+        Generations:             100
+        Current Generation:      100
+        Mutation Rate:           0.02
+        Crossover Rate:          0.90
+        Minimax Type:            Maximize
+        Elitism:                 True
+        Elitism Replacement:     1
+        DB Adapter:              DBFileCSV DB Adapter [File='pyevolve.csv', identify='30/09/18-02:51']
+        Slot [Selector] (Count: 1)
+                Name: GRankSelector - Weight: 0.50
+                Doc:  The Rank Selector - This selector will pick the best individual of
+    the population every time.
