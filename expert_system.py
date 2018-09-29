@@ -54,6 +54,7 @@ class ExpertSystem:
 
         # Membership function for children
         x = np.arange(df["children"].min(), df["children"].max()+1, 1)
+        print(x)
         children = ctrl.Antecedent(x, "children")
         children["low"] = np.array([1, 1, 0.5, 0, 0])
         children["high"] = np.array([0, 0, 0.5, 0.7, 1])
