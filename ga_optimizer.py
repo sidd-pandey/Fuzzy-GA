@@ -3,7 +3,7 @@ import numpy as np
 import utils
 import time
 from pyevolve import G2DList, G1DList, Mutators
-from pyevolve import GAllele, Initializators, GSimpleGA
+from pyevolve import GAllele, Initializators, GSimpleGA, DBAdapters
 from expert_system import ExpertSystem
 from prediction_system import PredictionModel
 
@@ -92,8 +92,10 @@ ga = GSimpleGA.GSimpleGA(genome)
 ga.setPopulationSize(100)
 ga.setGenerations(100)
 
+sqlite_adapter = DBAdapters.DBSQLite(identify="ex6")
+ga.setDBAdapter(sqlite_adapter)
 # Do the evolution, with stats dump
-# frequency of 10 generations
+# frequency of 1 generations
 ga.evolve(freq_stats=1)
 
 # Best individual
