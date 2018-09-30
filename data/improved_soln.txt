@@ -31,3 +31,24 @@ Predicted Actual: 295.2
 Number of Matches: 80
 
 ---------------------------------------------------------
+
+Improvised member function RandomForest
+Predicted: 1932.46590020128
+Actual: 1237.94
+Predicted Actual: 381.02000000000004
+Number of Matches: 103
+
+-------------------------------------------------------
+
+[30, 57, 85, 2500, 14551, 17670, 14000, 20000, 27000, 6312, 6811, 8403, 3, 10, 10]
+
+---------------------------------------------------------
+Improvised member function new, RandomForest, cooperating
+
+Predicted: 1786.3040541345608
+Actual: 1237.94
+Predicted Actual: 390.82
+Number of Matches: 105
+----------------------------------------------------------
+
+
