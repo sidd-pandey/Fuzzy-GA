@@ -10,14 +10,14 @@ from expert_system import ExpertSystem
 #df = load_data("data/trialPromoResults.csv").drop(axis=1, labels="decision")
 df = load_data("data/custdatabase.csv")
 
-model = CsvPredictionModel("data/neural_network_pred_v1.csv")
-#model = PredictionModel()
+# model = CsvPredictionModel("data/neural_network_pred_v1.csv")
+model = PredictionModel()
 ga_cutpoints = {
-    "age": [24, 40, 50],
-    "income": [2500, 6468, 7500],
-    "avbal": [33857, 51511, 67476],
-    "avtrans": [1620, 2210, 5448],
-    "cip": [3, 9, 10]
+    "age": [30, 57, 85],
+    "income": [2500, 14551, 17670],
+    "avbal": [14000, 20000, 27000],
+    "avtrans": [6312, 6811, 8403],
+    "cip": [3, 10, 10]
 }
 # expert = ExpertSystem(df)
 expert = ExpertSystem(df, ga_cutpoints)

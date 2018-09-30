@@ -1,0 +1,28 @@
+[30, 57, 85, 2500, 14551, 17670, 14000, 20000, 27000, 6312, 6811, 8403, 3, 10, 10]
+
+---------------------------------------------------------
+Improvised member function new, RandomForest, cooperating
+
+Predicted: 1786.3040541345608
+Actual: 1237.94
+Predicted Actual: 390.82
+Number of Matches: 105
+----------------------------------------------------------
+
+RandomForest non cooperating
+
+Predicted: 1779.2568870243392
+Actual: 1237.94
+Predicted Actual: 413.76
+Number of Matches: 110
+
+----------------------------------------------------------
+
+Neural Network non cooperating
+
+Predicted: 1784.0719468244429
+Actual: 1237.94
+Predicted Actual: 320.40000000000003
+Number of Matches: 87
+
+----------------------------------------------------------
