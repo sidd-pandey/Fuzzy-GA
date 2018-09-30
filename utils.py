@@ -78,4 +78,4 @@ def expected_profit_campaign_predicted_actual(df, indexs):
 # Return the number of matches between actual and predicted
 def matches_count(actual, predicted):
     matches = set(actual) & set(predicted)
-return len(matches)
+    return len(matches)

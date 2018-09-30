@@ -14,3 +14,20 @@
                 Name: GRankSelector - Weight: 0.50
                 Doc:  The Rank Selector - This selector will pick the best individual of
     the population every time.
+---------------------------------------------------------
+Base soln on domain knowledge based cutpoiny, kk
+
+Predicted: 2970.909357097489
+Actual: 1237.94
+Predicted Actual: 337.5
+Number of Matches: 89
+
+---------------------------------------------------------
+Improvised member function cutpoints, kk
+
+Predicted: 1900.4283853004395
+Actual: 1237.94
+Predicted Actual: 295.2
+Number of Matches: 80
+
+---------------------------------------------------------
