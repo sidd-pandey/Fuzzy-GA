@@ -12,8 +12,15 @@ df = load_data("data/custdatabase.csv")
 
 model = CsvPredictionModel("data/neural_network_pred_v1.csv")
 #model = PredictionModel()
-
-expert = ExpertSystem(df)
+ga_cutpoints = {
+    "age": [24, 40, 50],
+    "income": [2500, 6468, 7500],
+    "avbal": [33857, 51511, 67476],
+    "avtrans": [1620, 2210, 5448],
+    "cip": [3, 9, 10]
+}
+# expert = ExpertSystem(df)
+expert = ExpertSystem(df, ga_cutpoints)
 
 expected_profit_campaign_pred, predicted_index = expected_profit_campaign_predicted(model, expert, df, save_csv=True)
 print("Predicted:", expected_profit_campaign_pred)
