@@ -6,7 +6,7 @@ A Neuro GA Fuzzy Hybrid intelligent system
 
 
 <i>ga_optimizer.py</i> script, executes genetic algorithm optimization to find better cut points for the membership function defined.
-Run <b>"python ga_optimizer.py"<b> to start the script. At the end of execution, optimized cutpoints are prinited, which can be use base.py file to override the default cutpoints.<br>
+Run <b>"python ga_optimizer.py"</b> to start the script. At the end of execution, optimized cutpoints are prinited, which can be use base.py file to override the default cutpoints.<br>
 
 <i>expert_system.py</i> file contains class ExpertSystem which can be used to create instance of fuzzy inference system.<br>
 
