@@ -24,7 +24,7 @@ class PredictionModel:
         X_resampled, y_resampled = RandomOverSampler(ratio={"A":150, "B":100}).fit_sample(X, y)
         X_resampled, y_resampled = RandomUnderSampler(ratio={"None":250}).fit_sample(X_resampled, y_resampled)
 
-        model = RandomForestClassifier(n_estimators=500, max_features=None)
+        model = RandomForestClassifier(n_estimators=500, max_features=None, n_jobs=2)
         model.fit(X_resampled, y_resampled)
 
         print("Training complete.")
@@ -41,5 +41,5 @@ class PredictionModel:
         return self.model.predict(row)
 
     def load_data(self):
-        df = utils.load_data("data/trialPromoResults.csv")
+        df = utils.load_data("data/trialPromoResults_merged.csv")
         return df

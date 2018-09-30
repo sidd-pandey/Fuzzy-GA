@@ -30,15 +30,26 @@ def expected_profit_customer(cip, product):
 # Compute expected profit for customers selected for campaign
 def expected_profit_campaign_predicted(model, expert, df, save_csv=False):    
     cust_predict = []
-    product_predict = model.predict(df)
+    
     for index in tqdm(range(len(df))): 
         row = df.loc[index]
         cip = expert.predict(row)
+        product = "None"
+        expected_profit = expected_profit_customer(cip, product)
+        cust_predict.append([df.loc[index, "index"], product, cip, expected_profit])
+
+    df["cip"] = [item[2] for item in cust_predict]
+    print(df.head())
+    product_predict = model.predict(df)
+    for index in tqdm(range(len(df))): 
+        row = df.loc[index]
+        cip = cust_predict[index][2]
         product = product_predict[index]
         expected_profit = expected_profit_customer(cip, product)
-        cust_predict.append([df.loc[index, "index"], product, cip, expected_profit])   
+        cust_predict[index] = ([df.loc[index, "index"], product, cip, expected_profit])
     
     cust_predict_df = pd.DataFrame(cust_predict, columns=["index", "product", "cip", "expected profit"])
+    print(cust_predict_df.tail())
     cust_predict_df_sorted = cust_predict_df.sort_values(by=["expected profit"], ascending=False)
     cust_campaign_400 = cust_predict_df_sorted[:400]
     

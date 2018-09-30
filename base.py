@@ -7,7 +7,7 @@ from expert_system import ExpertSystem
 
 
 # Read the data frame
-#df = load_data("data/trialPromoResults.csv").drop(axis=1, labels="decision")
+# df = load_data("data/trialPromoResults.csv").drop(axis=1, labels="decision")
 df = load_data("data/custdatabase.csv")
 
 # model = CsvPredictionModel("data/neural_network_pred_v1.csv")
