@@ -54,7 +54,7 @@ def expected_profit_campaign_predicted(model, expert, df, save_csv=False):
 def expected_profit_campaign_actual(df):
     profit = []
     for index in range(len(df)):
-        profit.append(expected_profit_customer(df.loc[index, "cust Investment Potential Score "], 
+        profit.append(expected_profit_customer(df.loc[index, "cust Investment Potential Score"], 
             df.loc[index, "status"]))
     
     df["profit"] = profit
@@ -68,7 +68,7 @@ def expected_profit_campaign_actual(df):
 def expected_profit_campaign_predicted_actual(df, indexs):
     profit = []
     for index in indexs:
-        profit.append(expected_profit_customer(df.loc[index, "cust Investment Potential Score "], 
+        profit.append(expected_profit_customer(df.loc[index, "cust Investment Potential Score"], 
             df.loc[index, "status"]))
     
     expected_profit = np.sum(profit)
@@ -78,4 +78,4 @@ def expected_profit_campaign_predicted_actual(df, indexs):
 # Return the number of matches between actual and predicted
 def matches_count(actual, predicted):
     matches = set(actual) & set(predicted)
-    return len(matches)
+return len(matches)
