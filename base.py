@@ -4,17 +4,16 @@ from utils import expected_profit_campaign_predicted_actual, matches_count
 from prediction_system import PredictionModel
 from expert_system import ExpertSystem
 
-
 # Read the data frame
 df = load_data("data/custdatabase.csv")
 
 model = PredictionModel()
 expert = ExpertSystem(df, cutpoints = {
-        "age": [24, 40, 50],
-        "income": [2500, 6468, 7500],
-        "avbal": [33857, 51511, 67476],
-        "avtrans": [1620, 2210, 5448],
-        "cip": [3, 9, 10]
+        "age": [30, 40, 50],
+        "income": [2500, 5000, 7500],
+        "avbal": [14000, 20000, 27000],
+        "avtrans": [1000, 1500, 2400],
+        "cip": [3, 5, 7]
     })
 
 expected_profit_campaign_pred, predicted_index = expected_profit_campaign_predicted(model, expert, df, save_csv=True)

@@ -12,15 +12,21 @@ class ExpertSystem:
         "cip": [3, 5, 7]
     }
 
-    def __init__(self, df, cutpoints=None):
+    # init_rules = np.array([1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0,
+        # 0, 0, 1, 0, 0, 1, 1, 1, 1], dtype=int)
+    init_rules = np.ones((27,), dtype=int)
+
+    def __init__(self, df, cutpoints=None, rules=None):
         self.df = df
         
         self.cutpoints = dict(self.init_cutpoints)
+        self.rules_selected = self.init_rules
         if cutpoints is not None:
             for key in self.cutpoints:
                 if key in cutpoints:
                     self.cutpoints[key] = cutpoints[key]
-        
+        if rules is not None:
+            self.rules_selected = np.array(rules, dtype=int)
         self.simulator = self.expert_system()
 
 
@@ -117,11 +123,24 @@ class ExpertSystem:
         rules = []
     
         # Rules for Account Activity
-        rules.append(ctrl.Rule(avbal["high"] & avtrans["high"], cip["high"]))
-        rules.append(ctrl.Rule(avbal["high"] & avtrans["medium"], cip["medium"]))
-        rules.append(ctrl.Rule(avbal["medium"] & avtrans["high"], cip["medium"]))
-        rules.append(ctrl.Rule(avbal["medium"] & avtrans["medium"], cip["medium"]))
-        rules.append(ctrl.Rule(avbal["low"] | avtrans["low"], cip["low"]))
+        # rules.append(ctrl.Rule(avbal["high"] & avtrans["high"], cip["high"]))
+        # rules.append(ctrl.Rule(avbal["high"] & avtrans["medium"], cip["medium"]))
+        # rules.append(ctrl.Rule(avbal["medium"] & avtrans["high"], cip["medium"]))
+        # rules.append(ctrl.Rule(avbal["medium"] & avtrans["medium"], cip["medium"]))
+        # rules.append(ctrl.Rule(avbal["low"] | avtrans["low"], cip["low"]))
+
+        # [1, 0, 0, 0, 0, 0, 0, 0, 0] 
+        # [0, 1, 0, 1, 1, 0, 0, 0, 0]
+        # [0, 0, 1, 0, 0, 1, 1, 1, 1]
+        
+        rule_count = 0
+        combinations = ["high", "medium", "low"]
+        for consq in combinations:
+            for ante1 in combinations:
+                for ante2 in combinations:
+                    if self.rules_selected[rule_count] == 1:
+                        rules.append(ctrl.Rule(avbal[ante1] & avtrans[ante2], cip[consq]))
+                    rule_count += 1
 
         # Rules for Personal Factors
         rules.append(ctrl.Rule(sex["M"], cip["high"]))
