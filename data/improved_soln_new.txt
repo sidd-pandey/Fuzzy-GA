@@ -7,6 +7,12 @@ Predicted: 1786.3040541345608
 Actual: 1237.94
 Predicted Actual: 390.82
 Number of Matches: 105
+
+Predicted: 1712.3672572152625
+Actual: 1237.94
+Predicted Actual: 399.6
+Number of Matches: 103
+
 ----------------------------------------------------------
 
 RandomForest non cooperating
