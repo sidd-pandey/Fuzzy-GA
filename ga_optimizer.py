@@ -68,10 +68,7 @@ def eval_func(chromosome):
     cutpoints = convert_to_dict(chromosome)
     if check_sorted(chromosome):
         subset = df.sample(50)
-        start = time.time()
         expert = ExpertSystem(df, cutpoints)
-
-        start = time.time()
         error = 1
         for index, row in subset.iterrows():
             cip_predicted = expert.predict(row) 
